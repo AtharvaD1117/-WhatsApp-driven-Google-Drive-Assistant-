@@ -1,0 +1,22 @@
+{
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "path": "whatsapp-webhook", "httpMethod": "POST" }
+    },
+    {
+      "name": "Parse Command",
+      "type": "n8n-nodes-base.function",
+      "parameters": {
+        "functionCode": "// parse incoming body to command, return JSON with command and args\nreturn items;"
+      }
+    },
+    {
+      "name": "OpenAI - Summarize",
+      "type": "n8n-nodes-base.openai",
+      "parameters": { "resource": "chat", "operation": "create", "model": "gpt-4o-mini", "input": "={{$json.prompt}}" }
+    }
+  ],
+  "connections": {}
+}
